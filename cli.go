@@ -8,9 +8,10 @@ import (
 )
 
 type Options struct {
-	help bool
-	name string
-	key  string
+	help    bool
+	name    string
+	key     string
+	version bool
 }
 
 var f *flag.FlagSet
@@ -19,12 +20,18 @@ func parseArgs(args []string) (Options, error) {
 	opts := Options{}
 	f = flag.NewFlagSet("", flag.ContinueOnError)
 	f.BoolVarP(&opts.help, "help", "h", false, "show this help")
+	f.BoolVar(&opts.version, "version", false, "show installed version")
 	f.StringVarP(&opts.key, "key", "k", "", "prop in json objects that identifies them (basically the id)")
 	err := f.Parse(args[1:])
 	opts.name = f.Arg(0)
 
 	if opts.help {
 		printUsage()
+		os.Exit(0)
+	}
+
+	if opts.version {
+		fmt.Printf("%s\n", version)
 		os.Exit(0)
 	}
 

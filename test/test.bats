@@ -58,3 +58,10 @@ diag() {
   assert_failure
   assert_output "Error: Expecting array of objects in stdin"
 }
+
+@test "prints version" {
+  run json-watch --version
+  version=$(rg '"(v\d.\d.\d)"' -or '$1' version.go)
+  assert_success
+  assert_output "$version"
+}
