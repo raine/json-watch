@@ -24,15 +24,15 @@ On further executions, unseen JSON objects in the array will be printed to
 stdout as newline delimited JSON.
 
 The name parameter uniquely identifies an instance of json-watch usage, so if
-you are watching multiple JSONs for new objects, each of the json-watch calls
-should have a distinct name.
+watching multiple JSONs for new objects, each of the json-watch calls should
+have a distinct name.
 
 ## options
 
 ```
-Options:
   -h, --help         show this help
   -k, --key string   prop in json objects that identifies them (basically the id)
+      --version      show installed version
 ```
 
 ## example use
