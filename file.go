@@ -5,11 +5,11 @@ import (
 	"os"
 )
 
-func readLinesMap(file *os.File) (map[string]bool, error) {
-	lines := make(map[string]bool)
+func readLinesMap(file *os.File) (map[string]struct{}, error) {
+	lines := make(map[string]struct{})
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		lines[scanner.Text()] = true
+		lines[scanner.Text()] = struct{}{}
 	}
 	if err := scanner.Err(); err != nil {
 		return lines, err

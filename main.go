@@ -70,7 +70,7 @@ func main() {
 
 		if isEmptyWatchFile {
 			writeSeenId(watchFile, objId)
-		} else if !seenIds[objId] {
+		} else if _, ok := seenIds[objId]; !ok {
 			json, _ := json.Marshal(obj)
 			fmt.Println(string(json))
 			writeSeenId(watchFile, objId)
