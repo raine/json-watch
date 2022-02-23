@@ -51,7 +51,9 @@ func printUsage() {
 
 Takes a list of objects as JSON through stdin.
 
-The first execution will "prime the watch file" and won't print output.
+The first execution will "prime" the internal watch file (stored at
+$HOME/.config/json-watch/watches/<name>) with existing items and won't print
+output.
 
 On further executions, unseen JSON objects in the array will be printed to
 stdout as newline delimited JSON.
