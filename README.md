@@ -2,6 +2,15 @@
 
 A small cli tool for monitoring JSON data for new items.
 
+```sh
+# the first run never emits
+echo '[{"id": 1}, {"id": 2}]' | json-watch test --key id
+# the second run finds two new items
+echo '[{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}]' | json-watch test --key id
+{"id": 3}
+{"id": 4}
+```
+
 Go rewrite of [json-notify][json-notify].
 
 ## install
@@ -18,7 +27,9 @@ go install github.com/raine/json-watch@latest
 
 Takes a list of objects as JSON through stdin.
 
-The first execution will "prime the watch file" and won't print output.
+The first execution will "prime" the internal watch file (stored at
+`$HOME/.config/json-watch/watches/<name>`) with existing items and won't print
+output.
 
 On further executions, unseen JSON objects in the array will be printed to
 stdout as newline delimited JSON.
