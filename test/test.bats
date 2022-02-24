@@ -22,17 +22,23 @@ diag() {
   assert_failure
 }
 
-@test "key is required" {
-  run json-watch test
-  assert_output -p "Error: key is required"
-  assert_failure
-}
-
 @test "first run with empty watch file" {
   run bash -c 'echo '"'"'[{"id":1},{"id":2}]'"'"' | json-watch test --key id'
   assert_success
   assert_output ""
   assert_file_equals "$config/watches/test" $'1\n2'
+}
+
+@test "without key prop uses object checksum" {
+  run bash -c 'echo '"'"'[{"id":1},{"id":2}]'"'"' | json-watch test'
+  assert_success
+  cat "$config/watches/test"
+  expected=$(cat <<END
+87911d1aed509877b83a48ec536f768cdcd22df1
+335bb849cdbcbb193ecf25c9bd24c9684932206c
+END
+)
+  assert_file_equals "$config/watches/test" "$expected"
 }
 
 @test "second run outputs unseen objects and writes id to watchfile" {

@@ -39,10 +39,6 @@ func parseArgs(args []string) (Options, error) {
 		return opts, fmt.Errorf("name is required")
 	}
 
-	if opts.key == "" {
-		return opts, fmt.Errorf("key is required")
-	}
-
 	return opts, err
 }
 
@@ -61,6 +57,9 @@ stdout as newline delimited JSON.
 The name parameter uniquely identifies an instance of json-watch usage, so if
 you are watching multiple JSONs for new objects, each of the json-watch calls
 should have a distinct name.
+
+If the key parameter is not provided, an object's content is calculated to a
+checksum and that is used for identification.
 
 Options:`
 	fmt.Println(usage)

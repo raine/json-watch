@@ -28,6 +28,15 @@ func writeSeenId(watchFile *os.File, id string) {
 
 func getObjId(keyProp string, obj *UnknownObject) string {
 	var key string
+
+	if keyProp == "" {
+		checksum, err := calcStructChecksum(*obj)
+		if err != nil {
+			dieWithError(err)
+		}
+		return checksum
+	}
+
 	switch typedObjKey := ((*obj)[keyProp]).(type) {
 	case string:
 		key = typedObjKey
